@@ -1,0 +1,16 @@
+[
+{
+  "modid": "coppermod",
+  "name": "Copper Mod",
+  "description": "Adds copper ore, tools, armor, and various other things.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["atvaccaro"],
+  "credits": "The Forge and FML guys, for making this example",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
