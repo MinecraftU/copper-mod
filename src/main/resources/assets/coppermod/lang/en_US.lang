@@ -1,5 +1,6 @@
 tile.copper_ore.name=Copper Ore
 tile.copper_block.name=Copper Block
+tile.metalworking_bench.name=Metalworking Bench
 
 item.copper_helmet.name=Copper Helmet
 item.copper_chestplate.name=Copper Chestplate

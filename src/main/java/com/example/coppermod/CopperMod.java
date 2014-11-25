@@ -1,10 +1,17 @@
 package com.example.coppermod;
 
+import com.example.coppermod.block.BlockAlabasterOven;
 import com.example.coppermod.block.BlockCopperBlock;
 import com.example.coppermod.block.BlockCopperOre;
 import com.example.coppermod.block.BlockMetalworkingBench;
+import com.example.coppermod.entity.EntityCyclops;
+import com.example.coppermod.handler.EntityHandler;
+import com.example.coppermod.handler.GuiHandler;
+import com.example.coppermod.tileentity.TileEntityAlabasterOven;
 import com.example.coppermod.worldgen.OreManager;
 import com.example.coppermod.item.*;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -17,6 +24,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.EnumHelper;
 
 @Mod(modid = CopperMod.MODID, version = CopperMod.VERSION)
@@ -33,8 +41,13 @@ public class CopperMod
     public static Block copperOre;
     public static Block copperBlock;
 
+    public static Block alabasterOvenIdle;
+    public static Block alabasterOvenActive;
+    public static final int guiIDAlabasterOven = 0;
+
     public static Block metalworkingBench;
     public static final int guiIDMetalworkingBench = 1;
+
 
     //Item variables
     public static Item copperIngot;
@@ -75,6 +88,15 @@ public class CopperMod
 
         metalworkingBench = new BlockMetalworkingBench();
         GameRegistry.registerBlock(metalworkingBench, metalworkingBench.getUnlocalizedName());
+
+        alabasterOvenIdle = new BlockAlabasterOven(false).setBlockName("alabasterOvenIdle");
+        alabasterOvenActive = new BlockAlabasterOven(true).setBlockName("alabasterOvenActive").setLightLevel(0.625F);
+
+        GameRegistry.registerBlock(alabasterOvenIdle, MODID + "_" + alabasterOvenIdle.getUnlocalizedName());
+        GameRegistry.registerBlock(alabasterOvenActive, MODID + "_" + alabasterOvenActive.getUnlocalizedName());
+
+        //TILE ENTITIES
+        GameRegistry.registerTileEntity(TileEntityAlabasterOven.class, "alabaster_oven");
 
 
         //ITEMS
@@ -134,12 +156,15 @@ public class CopperMod
         oreManager = new OreManager();
         GameRegistry.registerWorldGenerator(oreManager, 0); //Integer determines when generation code runes (0 = normal)
                                                             //Use higher numbers to run later
-    }
+        //entities
+        EntityHandler.registerEntities(EntityCyclops.class, "Cyclops");
+
+    } //end preInit
 
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-		// some example code
-        System.out.println("DIRT BLOCK >> "+Blocks.dirt.getUnlocalizedName());
-    }
+        //FMLCommonHandler.instance().bus().register(new CraftingHandler());
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+    } //end init
 }

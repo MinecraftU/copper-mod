@@ -20,4 +20,6 @@ public class BlockCopperOre extends Block
         this.setBlockTextureName("coppermod:copper_ore");
         this.setHarvestLevel("pickaxe", 2);
     }
+
+
 }

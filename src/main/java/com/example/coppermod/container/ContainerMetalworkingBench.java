@@ -1,6 +1,7 @@
 package com.example.coppermod.container;
 
 import com.example.coppermod.CopperMod;
+import com.example.coppermod.crafting.MetalworkingBenchCraftingManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
@@ -21,37 +22,42 @@ public class ContainerMetalworkingBench extends Container
     private int posZ;
 
     public ContainerMetalworkingBench(InventoryPlayer invPlayer, World world, int x, int y, int z) {
-        craftMatrix = new InventoryCrafting(this, 5, 5);
+        craftMatrix = new InventoryCrafting(this, 3, 3);
         craftResult = new InventoryCraftResult();
         worldObj = world;
         posX = x;
         posY = y;
         posZ = z;
 
-        this.addSlotToContainer(new SlotCrafting(invPlayer.player, craftMatrix, craftResult, 0, 141, 43));
+        //Add crafting output slot
+        this.addSlotToContainer(new SlotCrafting(invPlayer.player, craftMatrix, craftResult, 0, 124, 35));
 
-        for (int i = 0; i < 5; i++) {
-            for(int k = 0; k < 5; k++) {
-                this.addSlotToContainer(new Slot(craftMatrix, k + i * 5, 8 + k * 18, 7 + i * 18));
+        //Add the crafting area slots
+        for (int i = 0; i < 3; i++) {
+            for(int k = 0; k < 3; k++) {
+                this.addSlotToContainer(new Slot(craftMatrix, k + i * 3, 30 + k * 18, 17 + i * 18)); //number slot, x, y
             }
         }
 
+        //Add the player main inventory slots
         for (int i = 0; i < 3; i++) {
             for(int k = 0; k < 9; k++) {
-                this.addSlotToContainer(new Slot(invPlayer, k + i * 9 + 9, 8 + k * 18, 106 + i * 18));
+                this.addSlotToContainer(new Slot(invPlayer, k + i * 9 + 9, 8 + k * 18, 84 + i * 18)); //number slot, x, y
             }
         }
 
+        //Add the player current inventory slot
         for (int i = 0; i < 9; i++) {
-            this.addSlotToContainer(new Slot(invPlayer, i, 8 + i * 18, 164));
+            this.addSlotToContainer(new Slot(invPlayer, i, 8 + i * 18, 142)); //number slot, x, y
         }
 
         onCraftMatrixChanged(craftMatrix);
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer player) {
-        if(worldObj.getBlock(posX, posY, posZ) != CopperMod.metalworkingBench) {
+    public boolean canInteractWith(EntityPlayer player)
+    {
+        if(worldObj.getBlock(posX, posY, posZ) != CopperMod.metalworkingBench){
             return false;
         }else{
             return player.getDistanceSq((double)posX + 0.5D, (double)posY + 0.5D, (double)posZ + 0.5D) <= 64.0D;
@@ -59,11 +65,14 @@ public class ContainerMetalworkingBench extends Container
 
     }
 
-    public void onCraftMatrixChanged(IInventory iiventory) {
-        //craftResult.setInventorySlotContents(0, MetalworkingBenchCraftingManager.getInstance().findMatchingRecipe(craftMatrix, worldObj));
+    public void onCraftMatrixChanged(IInventory iiventory)
+    {
+        //Links the crafting manager to the container
+        craftResult.setInventorySlotContents(0, MetalworkingBenchCraftingManager.getInstance().findMatchingRecipe(craftMatrix, worldObj));
     }
 
-    public void onContainerClosed(EntityPlayer par1EntityPlayer) {
+    public void onContainerClosed(EntityPlayer par1EntityPlayer)
+    {
         super.onContainerClosed(par1EntityPlayer);
 
         if (!this.worldObj.isRemote)

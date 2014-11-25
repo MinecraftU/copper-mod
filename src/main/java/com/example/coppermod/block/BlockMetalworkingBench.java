@@ -40,7 +40,9 @@ public class BlockMetalworkingBench extends Block
         this.metalworkingBenchTop = iconRegister.registerIcon(CopperMod.MODID + ":" + "metalworking_bench_top");
     }
 
-    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
+                                     float hitY, float hitZ)
+    {
 
         if (!player.isSneaking()) {
             player.openGui(CopperMod.instance, CopperMod.guiIDMetalworkingBench, world, x, y, z);

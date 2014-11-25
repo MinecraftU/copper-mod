@@ -33,7 +33,8 @@ public class GuiMetalworkingBench extends GuiContainer {
 
     protected void drawGuiContainerForegroundLayer(int i, int j) {
 
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("Work Surface"), 100, 5, 0xFFFFFF);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal("Metalworking Bench"), 100, 5, 0xFFFFFF);
+                                                                                                //x, y, color
 
     }
 
