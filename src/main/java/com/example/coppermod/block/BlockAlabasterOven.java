@@ -30,6 +30,8 @@ public class BlockAlabasterOven extends BlockContainer
     @SideOnly(Side.CLIENT)
     private IIcon iconTop;
 
+    private static boolean keepInventory;
+
     public BlockAlabasterOven(boolean isActive)
     {
         super(Material.iron);
@@ -99,4 +101,27 @@ public class BlockAlabasterOven extends BlockContainer
             ((TileEntityAlabasterOven)world.getTileEntity(x, y, z)).setGuiDisplayName(itemStack.getDisplayName());
         }
     } //end onBlockPlacedBy
+
+    public static void updateAlabasterOvenBlockState(boolean active, World worldObj, int xCoord, int yCoord, int zCoord) {
+        int i = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+        TileEntity tileentity = worldObj.getTileEntity(xCoord, yCoord, zCoord);
+
+        keepInventory = true;
+
+        if (active) {
+            worldObj.setBlock(xCoord, yCoord, zCoord, CopperMod.alabasterOvenActive);
+        } else {
+            worldObj.setBlock(xCoord, yCoord, zCoord, CopperMod.alabasterOvenIdle);
+        }
+
+        keepInventory = false;
+
+        worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, i, 2);
+
+        if (tileentity != null) {
+            tileentity.validate();
+            worldObj.setTileEntity(xCoord, yCoord, zCoord, tileentity);
+        }
+
+    }   //end updateAlabasterOvenBlockState
 }

@@ -20,7 +20,7 @@ public class MetalworkingBenchCraftingManager {
     private static final MetalworkingBenchCraftingManager instance = new MetalworkingBenchCraftingManager();
     /** A list of all the recipes added */
     private List recipes = new ArrayList();
-    private static final String __OBFID = "CL_00000090";
+    private static final String OBFID = "CL_00000090";
 
     /**
      * Returns the static instance of this class

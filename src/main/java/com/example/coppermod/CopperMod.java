@@ -6,6 +6,7 @@ import com.example.coppermod.block.BlockCopperOre;
 import com.example.coppermod.block.BlockMetalworkingBench;
 import com.example.coppermod.entity.EntityCyclops;
 import com.example.coppermod.handler.EntityHandler;
+import com.example.coppermod.handler.FuelHandler;
 import com.example.coppermod.handler.GuiHandler;
 import com.example.coppermod.tileentity.TileEntityAlabasterOven;
 import com.example.coppermod.worldgen.OreManager;
@@ -63,17 +64,23 @@ public class CopperMod
     public static Item copperLegs;
     public static Item copperBoots;
 
+    //Food variables
     public static Item greenApple;
+    public static ItemFlour itemFlour;
+    public static ItemTortillaDough itemTortillaDough;
+    public static ItemTortilla itemTortilla;
+    public static ItemShreddedSteak itemShreddedSteak;
+    public static ItemSteakTaco itemSteakTaco;
 
     //Misc variables
     private static OreManager oreManager;
 
 
     //Create tool and armor materials
-    public static final Item.ToolMaterial COPPER = EnumHelper.addToolMaterial("copperTool", 2,
-            150, 5.0F, 7.0F, 21); //Harvest level, durability, block damage, entity damage, enchantability
+    public static final Item.ToolMaterial COPPER = EnumHelper.addToolMaterial("copper_tool", 2,
+            150, 5.0F, 2.0F, 21); //Harvest level, durability, block damage, entity damage, enchantability
 
-    public static final ItemArmor.ArmorMaterial COPPER_ARMOR = EnumHelper.addArmorMaterial("copperArmor", 20,
+    public static final ItemArmor.ArmorMaterial COPPER_ARMOR = EnumHelper.addArmorMaterial("copper_armor", 20,
             new int[]{2, 6, 5, 2}, 20); //durability (diamond = 33), damage done to pieces (helmet down to boots), enchantability
 
     @EventHandler
@@ -135,28 +142,37 @@ public class CopperMod
         copperBoots = new ItemCopperArmor(COPPER_ARMOR, 3, "copper_boots");
         GameRegistry.registerItem(copperBoots, MODID + "_" + copperBoots.getUnlocalizedName());
 
-        //FOOD
+        //FOODS
         greenApple = new ItemFood(6, 0.2F, false).setUnlocalizedName("green_apple").setTextureName(MODID + ":"
-                + "green_apple");
+                + "green_apple");   //just creating a new standard food
         GameRegistry.registerItem(greenApple, MODID + "_" + greenApple.getUnlocalizedName());
 
+        itemSteakTaco = new ItemSteakTaco(12, 0.8F, false); //with entirely new class
+        GameRegistry.registerItem(itemSteakTaco, MODID + "_" + itemSteakTaco.getUnlocalizedName());
+
+        itemTortilla = new ItemTortilla(1, 0.1F, false);
+        GameRegistry.registerItem(itemTortilla, MODID + "_" + itemTortilla.getUnlocalizedName());
+
+
+        //HANDLERS
+        GameRegistry.registerFuelHandler(new FuelHandler());
 
         //RECIPES
-
-        //shapeless
-
-        //shaped
         GameRegistry.addShapedRecipe(new ItemStack(copperSword), " x ", " x ", " y ", 'x', copperIngot, 'y', Items.stick);
         GameRegistry.addShapedRecipe(new ItemStack(copperBlock), "xxx", "xxx", "xxx", 'x', copperIngot);
+        GameRegistry.addShapelessRecipe(new ItemStack(itemSteakTaco), itemTortilla, Items.cooked_beef);
+        GameRegistry.addShapedRecipe(new ItemStack(itemTortilla), "xx ", "xx ", "   ", 'x', Items.wheat);
 
-        //smelting
+
+        //SMELTING
         GameRegistry.addSmelting(copperOre, new ItemStack(copperIngot), 0.5F);
 
-        //world generators
+        //WORLDGEN
         oreManager = new OreManager();
         GameRegistry.registerWorldGenerator(oreManager, 0); //Integer determines when generation code runes (0 = normal)
                                                             //Use higher numbers to run later
-        //entities
+
+        //ENTITIES
         EntityHandler.registerEntities(EntityCyclops.class, "Cyclops");
 
     } //end preInit

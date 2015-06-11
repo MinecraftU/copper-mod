@@ -34,17 +34,17 @@ public class ItemCopperSword extends ItemSword
     //How much damage dealt when hitting an entity
     public int getDamageVsEntity(Entity par1Entity)
     {
-        return (int)this.material.getDamageVsEntity();
+        return 3;//(int)this.material.getDamageVsEntity();
     }
 
     //When entity is hit with item
     public boolean hitEntity(ItemStack itemHitting, EntityLivingBase entityBeingHit, EntityLivingBase entityHitting)
     {
         //Create explosion on hit
-        entityBeingHit.worldObj.createExplosion(null, entityBeingHit.posX, entityBeingHit.posY, entityBeingHit.posZ, 10.0f, true);
+        //entityBeingHit.worldObj.createExplosion(null, entityBeingHit.posX, entityBeingHit.posY, entityBeingHit.posZ, 3.0f, true);
 
         //Set hit entity on fire
-        //entityBeingHit.setFire(4);
+        entityBeingHit.setFire(4);
 
         //Attempt at creating lightning strike on hit
         //EntityLightningBolt lightning = new EntityLightningBolt(entityBeingHit.worldObj, entityBeingHit.posX, entityBeingHit.posY, entityBeingHit.posZ);

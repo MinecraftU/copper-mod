@@ -14,9 +14,9 @@ import java.util.Random;
  */
 public class BlockCopperBlock extends Block
 {
-    public BlockCopperBlock(Material p_i45394_1_)
+    public BlockCopperBlock(Material mat)
     {
-        super(p_i45394_1_);
+        super(mat);
 
         this.setBlockName("copper_block");
         this.setHardness(5.0F);
@@ -35,14 +35,14 @@ public class BlockCopperBlock extends Block
 
 
     //Returns the quantity of items to drop on block destruction.
-    public int quantityDropped(Random p_149745_1_)
+    public int quantityDropped(Random rand)
     {
         return 9;
-        //return 2 + p_149745_1_.nextInt(3); //random between 2 and 5
+        //return 2 + rand.nextInt(3); //random between 2 and 5
     }
 
     //Returns item dropped when the block is destroyed
-    public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
+    public Item getItemDropped(int p_149650_1_, Random rand, int p_149650_3_)
     {
         return CopperMod.copperIngot;
     }
