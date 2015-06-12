@@ -3,6 +3,7 @@ package com.example.coppermod.item;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
@@ -41,18 +42,20 @@ public class ItemCopperSword extends ItemSword
     public boolean hitEntity(ItemStack itemHitting, EntityLivingBase entityBeingHit, EntityLivingBase entityHitting)
     {
         //Create explosion on hit
-        //entityBeingHit.worldObj.createExplosion(null, entityBeingHit.posX, entityBeingHit.posY, entityBeingHit.posZ, 3.0f, true);
+        //4.0f is standard TNT strength
+        //entityBeingHit.worldObj.createExplosion(null, entityBeingHit.posX, entityBeingHit.posY, entityBeingHit.posZ, 4.0f, true);
 
         //Set hit entity on fire
-        entityBeingHit.setFire(4);
+        //entityBeingHit.setFire(4);
 
         //Attempt at creating lightning strike on hit
-        //EntityLightningBolt lightning = new EntityLightningBolt(entityBeingHit.worldObj, entityBeingHit.posX, entityBeingHit.posY, entityBeingHit.posZ);
+        EntityLightningBolt lightning = new EntityLightningBolt(entityBeingHit.worldObj, entityBeingHit.posX, entityBeingHit.posY, entityBeingHit.posZ);
+        entityHitting.worldObj.addWeatherEffect(lightning);
 
         //Give potion effect to hit entity
         //entityBeingHit.addPotionEffect(new PotionEffect(1, 1, 1, false));
 
-        itemHitting.damageItem(1, entityHitting);
+        //itemHitting.damageItem(1, entityHitting);
         return true;
     }
 }

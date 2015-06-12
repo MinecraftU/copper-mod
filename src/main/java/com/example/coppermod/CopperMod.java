@@ -5,14 +5,19 @@ import com.example.coppermod.block.BlockCopperBlock;
 import com.example.coppermod.block.BlockCopperOre;
 import com.example.coppermod.block.BlockMetalworkingBench;
 import com.example.coppermod.entity.EntityCyclops;
+import com.example.coppermod.entity.EntityExplodingArrow;
 import com.example.coppermod.handler.EntityHandler;
 import com.example.coppermod.handler.FuelHandler;
 import com.example.coppermod.handler.GuiHandler;
+import com.example.coppermod.proxy.ClientProxy;
+import com.example.coppermod.proxy.CommonProxy;
 import com.example.coppermod.tileentity.TileEntityAlabasterOven;
 import com.example.coppermod.worldgen.OreManager;
 import com.example.coppermod.item.*;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -37,6 +42,12 @@ public class CopperMod
 
     @Mod.Instance(MODID)
     public static CopperMod instance;
+
+    @SidedProxy(clientSide="com.example.coppermod.proxy.ClientProxy", serverSide="com.example.coppermod.proxy.ServerProxy")
+    public static ClientProxy clientProxy;
+    public static CommonProxy commonProxy;
+
+
 
     //Block variables
     public static Block copperOre;
@@ -63,6 +74,9 @@ public class CopperMod
     public static Item copperChestplate;
     public static Item copperLegs;
     public static Item copperBoots;
+
+    public static Item explodingBow;
+    public static Item explodingArrow;
 
     //Food variables
     public static Item greenApple;
@@ -110,6 +124,17 @@ public class CopperMod
         copperIngot = new ItemCopperIngot();
         GameRegistry.registerItem(copperIngot, MODID + "_" + copperIngot.getUnlocalizedName());
 
+        //BOWS AND ARROWS
+        explodingBow = new ItemExplodingBow();
+        GameRegistry.registerItem(explodingBow, MODID + "_" + explodingBow.getUnlocalizedName());
+        explodingArrow = new ItemExplodingArrow();
+        GameRegistry.registerItem(explodingArrow, MODID + "_" + explodingArrow.getUnlocalizedName());
+        clientProxy.registerRenderThing(); //here b/c of arrow
+        EntityRegistry.registerGlobalEntityID(EntityExplodingArrow.class, "exploding_arrow",
+                EntityRegistry.findGlobalUniqueEntityId());
+        EntityRegistry.registerModEntity(EntityExplodingArrow.class, "exploding_arrow", 1, CopperMod.MODID,
+                128, 1, true);
+
 
         //TOOLS
         copperSword = new ItemCopperSword(CopperMod.COPPER);
@@ -156,6 +181,7 @@ public class CopperMod
 
         //HANDLERS
         GameRegistry.registerFuelHandler(new FuelHandler());
+
 
         //RECIPES
         GameRegistry.addShapedRecipe(new ItemStack(copperSword), " x ", " x ", " y ", 'x', copperIngot, 'y', Items.stick);
