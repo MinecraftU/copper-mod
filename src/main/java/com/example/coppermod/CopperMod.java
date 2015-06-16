@@ -16,6 +16,7 @@ import com.example.coppermod.worldgen.OreManager;
 import com.example.coppermod.item.*;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -30,8 +31,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 @Mod(modid = CopperMod.MODID, version = CopperMod.VERSION)
 public class CopperMod
@@ -98,7 +106,7 @@ public class CopperMod
             new int[]{2, 6, 5, 2}, 20); //durability (diamond = 33), damage done to pieces (helmet down to boots), enchantability
 
     @EventHandler
-    public void preInit(FMLInitializationEvent event)
+    public void preInit(FMLPreInitializationEvent event)
     {
         //BLOCKS
         copperOre = new BlockCopperOre(Material.rock);
@@ -183,6 +191,9 @@ public class CopperMod
         GameRegistry.registerFuelHandler(new FuelHandler());
 
 
+        //REMOVE RECIPES
+        CopperMod.removeRecipesWithResult(new ItemStack(Items.stick, 4));
+
         //RECIPES
         GameRegistry.addShapedRecipe(new ItemStack(copperSword), " x ", " x ", " y ", 'x', copperIngot, 'y', Items.stick);
         GameRegistry.addShapedRecipe(new ItemStack(copperBlock), "xxx", "xxx", "xxx", 'x', copperIngot);
@@ -192,6 +203,9 @@ public class CopperMod
 
         //SMELTING
         GameRegistry.addSmelting(copperOre, new ItemStack(copperIngot), 0.5F);
+
+        //GRASS SEEDS
+        MinecraftForge.addGrassSeed(new ItemStack(copperIngot), 100);   //10 weight is standard for wheat seeds
 
         //WORLDGEN
         oreManager = new OreManager();
@@ -209,4 +223,23 @@ public class CopperMod
         //FMLCommonHandler.instance().bus().register(new CraftingHandler());
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
     } //end init
+
+    private static void removeRecipesWithResult(ItemStack resultItem)
+    {
+        ArrayList recipes = (ArrayList) CraftingManager.getInstance().getRecipeList();
+
+        for (int scan = 0; scan < recipes.size(); scan++)
+        {
+            IRecipe tmpRecipe = (IRecipe) recipes.get(scan);
+            ItemStack recipeResult = tmpRecipe.getRecipeOutput();
+
+            if (ItemStack.areItemStacksEqual(resultItem, recipeResult))
+            {
+                Calendar cal = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                System.out.println("[" + sdf.format(cal.getTime()) + "] [" + CopperMod.MODID + "] Removing Recipe: " + recipes.get(scan).toString() + " -> " + recipeResult);
+                recipes.remove(scan);
+            }
+        }
+    }   //end removeRecipesWithResult
 }

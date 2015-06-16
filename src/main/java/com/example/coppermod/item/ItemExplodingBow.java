@@ -2,7 +2,6 @@ package com.example.coppermod.item;
 
 import com.example.coppermod.CopperMod;
 import com.example.coppermod.entity.EntityExplodingArrow;
-import com.sun.deploy.util.SessionState;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -10,8 +9,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -39,11 +36,11 @@ public class ItemExplodingBow extends Item
     /**
      * called when the player releases the use item button. Args: itemstack, world, entityplayer, itemInUseCount
      */
-    public void onPlayerStoppedUsing(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_)
+    public void onPlayerStoppedUsing(ItemStack bowItemStack, World world, EntityPlayer player, int itemInUseCount)
     {
-        int j = this.getMaxItemUseDuration(p_77615_1_) - p_77615_4_;
+        int j = this.getMaxItemUseDuration(bowItemStack) - itemInUseCount;
 
-        ArrowLooseEvent event = new ArrowLooseEvent(p_77615_3_, p_77615_1_, j);
+        ArrowLooseEvent event = new ArrowLooseEvent(player, bowItemStack, j);
         MinecraftForge.EVENT_BUS.post(event);
         if (event.isCanceled())
         {
@@ -51,9 +48,9 @@ public class ItemExplodingBow extends Item
         }
         j = event.charge;
 
-        boolean flag = p_77615_3_.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, p_77615_1_) > 0;
+        boolean flag = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, bowItemStack) > 0;
 
-        if (flag || p_77615_3_.inventory.hasItem(CopperMod.explodingArrow))
+        if (flag || player.inventory.hasItem(CopperMod.explodingArrow))
         {
             float f = (float)j / 20.0F;
             f = (f * f + f * 2.0F) / 3.0F;
@@ -68,34 +65,34 @@ public class ItemExplodingBow extends Item
                 f = 1.0F;
             }
 
-            EntityExplodingArrow entityexplodingarrow = new EntityExplodingArrow(p_77615_2_, p_77615_3_, f * 2.0F);
+            EntityExplodingArrow entityexplodingarrow = new EntityExplodingArrow(world, player, f * 2.0F);
 
             if (f == 1.0F)
             {
                 entityexplodingarrow.setIsCritical(true);
             }
 
-            int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, p_77615_1_);
+            int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, bowItemStack);
 
             if (k > 0)
             {
                 entityexplodingarrow.setDamage(entityexplodingarrow.getDamage() + (double)k * 0.5D + 0.5D);
             }
 
-            int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, p_77615_1_);
+            int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, bowItemStack);
 
             if (l > 0)
             {
                 entityexplodingarrow.setKnockbackStrength(l);
             }
 
-            if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, p_77615_1_) > 0)
+            if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, bowItemStack) > 0)
             {
                 entityexplodingarrow.setFire(100);
             }
 
-            p_77615_1_.damageItem(1, p_77615_3_);
-            p_77615_2_.playSoundAtEntity(p_77615_3_, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+            bowItemStack.damageItem(1, player);
+            world.playSoundAtEntity(player, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
             if (flag)
             {
@@ -103,12 +100,12 @@ public class ItemExplodingBow extends Item
             }
             else
             {
-                p_77615_3_.inventory.consumeInventoryItem(CopperMod.explodingArrow);
+                player.inventory.consumeInventoryItem(CopperMod.explodingArrow);
             }
 
-            if (!p_77615_2_.isRemote)
+            if (!world.isRemote)
             {
-                p_77615_2_.spawnEntityInWorld(entityexplodingarrow);
+                world.spawnEntityInWorld(entityexplodingarrow);
             }
         }
     }
@@ -176,7 +173,7 @@ public class ItemExplodingBow extends Item
         }
     }
 
-    //
+
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)

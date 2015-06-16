@@ -91,28 +91,28 @@ public class EntityExplodingArrow extends EntityArrow implements IProjectile
         }
     }
 
-    public EntityExplodingArrow(World p_i1756_1_, EntityLivingBase p_i1756_2_, float p_i1756_3_)
+    public EntityExplodingArrow(World world, EntityLivingBase shooter, float power) //actually power?
     {
-        super(p_i1756_1_);
+        super(world);
         this.renderDistanceWeight = 10.0D;
-        this.shootingEntity = p_i1756_2_;
+        this.shootingEntity = shooter;
 
-        if (p_i1756_2_ instanceof EntityPlayer)
+        if (shooter instanceof EntityPlayer)
         {
             this.canBePickedUp = 1;
         }
 
         this.setSize(0.5F, 0.5F);
-        this.setLocationAndAngles(p_i1756_2_.posX, p_i1756_2_.posY + (double)p_i1756_2_.getEyeHeight(), p_i1756_2_.posZ, p_i1756_2_.rotationYaw, p_i1756_2_.rotationPitch);
+        this.setLocationAndAngles(shooter.posX, shooter.posY + (double)shooter.getEyeHeight(), shooter.posZ, shooter.rotationYaw, shooter.rotationPitch);
         this.posX -= (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
         this.posY -= 0.10000000149011612D;
         this.posZ -= (double)(MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
-        this.setPosition(this.posX, this.posY, this.posZ);
+        this.setPosition(this.posX, this.posY+shooter.getEyeHeight(), this.posZ);    //TODO: what is going on??
         this.yOffset = 0.0F;
         this.motionX = (double)(-MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI));
         this.motionZ = (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI));
         this.motionY = (double)(-MathHelper.sin(this.rotationPitch / 180.0F * (float)Math.PI));
-        this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, p_i1756_3_ * 1.5F, 1.0F);
+        this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, power * 1.5F, 1.0F);
     }
 
     protected void entityInit()
