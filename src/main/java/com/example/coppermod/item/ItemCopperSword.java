@@ -1,5 +1,7 @@
 package com.example.coppermod.item;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -7,6 +9,10 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
+import net.minecraft.world.World;
 
 /**
  * Created by atvaccaro on 8/8/14.
@@ -32,13 +38,23 @@ public class ItemCopperSword extends ItemSword
 
     }
 
-    //How much damage dealt when hitting an entity
+    /**
+     * Returns the damage vs entities (sorta)
+     * @param par1Entity
+     * @return
+     */
     public int getDamageVsEntity(Entity par1Entity)
     {
         return 3;//(int)this.material.getDamageVsEntity();
     }
 
-    //When entity is hit with item
+    /**
+     * Called when the item is used to hit an entity
+     * @param itemHitting
+     * @param entityBeingHit
+     * @param entityHitting
+     * @return
+     */
     public boolean hitEntity(ItemStack itemHitting, EntityLivingBase entityBeingHit, EntityLivingBase entityHitting)
     {
         //Create explosion on hit
@@ -48,14 +64,18 @@ public class ItemCopperSword extends ItemSword
         //Set hit entity on fire
         //entityBeingHit.setFire(4);
 
+        entityBeingHit.addVelocity(0, 1, 0);
+
         //Attempt at creating lightning strike on hit
-        EntityLightningBolt lightning = new EntityLightningBolt(entityBeingHit.worldObj, entityBeingHit.posX, entityBeingHit.posY, entityBeingHit.posZ);
-        entityHitting.worldObj.addWeatherEffect(lightning);
+        //EntityLightningBolt lightning = new EntityLightningBolt(entityBeingHit.worldObj, entityBeingHit.posX, entityBeingHit.posY, entityBeingHit.posZ);
+        //entityHitting.worldObj.addWeatherEffect(lightning);
 
         //Give potion effect to hit entity
-        //entityBeingHit.addPotionEffect(new PotionEffect(1, 1, 1, false));
+        entityBeingHit.addPotionEffect(new PotionEffect(1, 1, 0));
 
         //itemHitting.damageItem(1, entityHitting);
+
+
         return true;
-    }
+    }   //end hitEntity
 }

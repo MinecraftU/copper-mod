@@ -1,9 +1,6 @@
 package com.example.coppermod;
 
-import com.example.coppermod.block.BlockAlabasterOven;
-import com.example.coppermod.block.BlockCopperBlock;
-import com.example.coppermod.block.BlockCopperOre;
-import com.example.coppermod.block.BlockMetalworkingBench;
+import com.example.coppermod.block.*;
 import com.example.coppermod.entity.EntityCyclops;
 import com.example.coppermod.entity.EntityExplodingArrow;
 import com.example.coppermod.handler.EntityHandler;
@@ -11,18 +8,21 @@ import com.example.coppermod.handler.FuelHandler;
 import com.example.coppermod.handler.GuiHandler;
 import com.example.coppermod.proxy.ClientProxy;
 import com.example.coppermod.proxy.CommonProxy;
+import com.example.coppermod.renderer.RenderExplodingArrow;
 import com.example.coppermod.tileentity.TileEntityAlabasterOven;
 import com.example.coppermod.worldgen.OreManager;
 import com.example.coppermod.item.*;
-import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
+import net.minecraft.creativetab.CreativeTabs;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -33,7 +33,6 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 
@@ -56,7 +55,6 @@ public class CopperMod
     public static CommonProxy commonProxy;
 
 
-
     //Block variables
     public static Block copperOre;
     public static Block copperBlock;
@@ -68,21 +66,37 @@ public class CopperMod
     public static Block metalworkingBench;
     public static final int guiIDMetalworkingBench = 1;
 
+    public static CreativeTabs tabCopper = new CreativeTabs("CopperTab") {
+        @Override
+        @SideOnly(Side.CLIENT)
+        public Item getTabIconItem() {
+            return CopperMod.copperIngot;
+        }
+    };
+
 
     //Item variables
     public static Item copperIngot;
 
+    //Crops
+    public static Block blueberryBlock;
+    public static Item blueberry;
+
+    //Tools
     public static Item copperSword;
     public static Item copperPickaxe;
     public static Item copperAxe;
     public static Item copperShovel;
     public static Item copperHoe;
+    public static Item mysteryToolSeed;
 
+    //Armor
     public static Item copperHelmet;
     public static Item copperChestplate;
     public static Item copperLegs;
     public static Item copperBoots;
 
+    //Bow and arrow
     public static Item explodingBow;
     public static Item explodingArrow;
 
@@ -138,10 +152,26 @@ public class CopperMod
         explodingArrow = new ItemExplodingArrow();
         GameRegistry.registerItem(explodingArrow, MODID + "_" + explodingArrow.getUnlocalizedName());
         clientProxy.registerRenderThing(); //here b/c of arrow
+
+        //bow rendering
+        RenderingRegistry.registerEntityRenderingHandler(EntityExplodingArrow.class, new RenderExplodingArrow());
+
         EntityRegistry.registerGlobalEntityID(EntityExplodingArrow.class, "exploding_arrow",
                 EntityRegistry.findGlobalUniqueEntityId());
+
         EntityRegistry.registerModEntity(EntityExplodingArrow.class, "exploding_arrow", 1, CopperMod.MODID,
                 128, 1, true);
+
+        //the order matters apparently?
+        RenderingRegistry.registerEntityRenderingHandler(EntityExplodingArrow.class, new RenderExplodingArrow());
+        EntityRegistry.registerModEntity(EntityExplodingArrow.class, "mystery_arrow", 1, this, 128, 1, true);
+
+        //CROPS
+        blueberryBlock = new BlockBlueberry();
+        GameRegistry.registerBlock(blueberryBlock, blueberryBlock.getUnlocalizedName());
+        blueberry = new ItemBlueberry();
+        GameRegistry.registerItem(blueberry, blueberry.getUnlocalizedName());
+
 
 
         //TOOLS
@@ -159,6 +189,9 @@ public class CopperMod
 
         copperHoe = new ItemCopperHoe(CopperMod.COPPER, "copper_hoe");
         GameRegistry.registerItem(copperHoe, MODID + "_" + copperHoe.getUnlocalizedName());
+
+        mysteryToolSeed = new ItemMysteryToolSeed();
+        GameRegistry.registerItem(mysteryToolSeed, MODID + "_" + mysteryToolSeed.getUnlocalizedName());
 
 
 
@@ -222,6 +255,8 @@ public class CopperMod
     {
         //FMLCommonHandler.instance().bus().register(new CraftingHandler());
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+        RenderingRegistry.registerEntityRenderingHandler(EntityExplodingArrow.class, new RenderExplodingArrow());
+
     } //end init
 
     private static void removeRecipesWithResult(ItemStack resultItem)

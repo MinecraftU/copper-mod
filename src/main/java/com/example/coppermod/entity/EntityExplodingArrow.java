@@ -9,6 +9,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -107,7 +108,7 @@ public class EntityExplodingArrow extends EntityArrow implements IProjectile
         this.posX -= (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
         this.posY -= 0.10000000149011612D;
         this.posZ -= (double)(MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
-        this.setPosition(this.posX, this.posY+shooter.getEyeHeight(), this.posZ);    //TODO: what is going on??
+        this.setPosition(this.posX, this.posY, this.posZ);    //TODO: what is going on??
         this.yOffset = 0.0F;
         this.motionX = (double)(-MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI));
         this.motionZ = (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI));
@@ -220,7 +221,8 @@ public class EntityExplodingArrow extends EntityArrow implements IProjectile
                 if (this.ticksInGround == 1) //ticks on ground until explosion occurs
                 {
                     this.setDead();
-                    this.worldObj.createExplosion(null, this.posX, this.posY, this.posZ, 3.0f, true);
+                    this.worldObj.addWeatherEffect(new EntityLightningBolt(this.worldObj, this.posX, this.posY, this.posZ));
+                    //this.worldObj.createExplosion(null, this.posX, this.posY, this.posZ, 3.0f, true);
                 }
             }
             else

@@ -66,7 +66,7 @@ public class OreManager implements IWorldGenerator {
         assert maxZ > 0 && maxZ <= 16 : "addOreSpawn: The Maximum Z must be greater than 0 and less than 16";
 
         int diffBtwnMinMaxY = maxY - minY;
-        for (int x = 0; x < chancesToSpawn; x++)
+        for (int i = 0; i < chancesToSpawn; i++)
         {
             int posX = blockXPos + random.nextInt(maxX);
             int posY = minY + random.nextInt(diffBtwnMinMaxY);

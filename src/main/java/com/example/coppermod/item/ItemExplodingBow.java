@@ -162,13 +162,13 @@ public class ItemExplodingBow extends Item
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister p_94581_1_)
     {
-        this.itemIcon = p_94581_1_.registerIcon(CopperMod.MODID + ":exploding_bow_standby");
+        this.itemIcon = p_94581_1_.registerIcon(CopperMod.MODID + ":" + this.getUnlocalizedName().substring(5) + "_standby");
                                             //this.getIconString() + "_standby"); //the "standby" texture
         this.iconArray = new IIcon[bowPullIconNameArray.length];
 
         for (int i = 0; i < this.iconArray.length; ++i)
         {
-            this.iconArray[i] = p_94581_1_.registerIcon(CopperMod.MODID + ":exploding_bow_" + bowPullIconNameArray[i]);
+            this.iconArray[i] = p_94581_1_.registerIcon(CopperMod.MODID + ":" + this.getUnlocalizedName().substring(5) + "_" + bowPullIconNameArray[i]);
                                 //this.getIconString() + "_" + bowPullIconNameArray[i]);
         }
     }

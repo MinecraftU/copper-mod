@@ -35,28 +35,6 @@ public class ItemCopperArmor extends ItemArmor
 
         else
             return CopperMod.MODID + ":models/armor/copper_layer_1.png";
-
-        /*if(stack.getItem() == CopperMod.copperHelmet)
-        {
-            return CopperMod.MODID + ":models/armor/copper_layer_1.png"; //Pay attention to the folder path
-        }
-        else if(stack.getItem() == CopperMod.copperChestplate)
-        {
-            return CopperMod.MODID + ":models/armor/copper_layer_1.png";
-        }
-        else if (stack.getItem() == CopperMod.copperLegs)
-        {
-            return CopperMod.MODID + ":models/armor/copper_layer_2.png";
-        }
-        else if (stack.getItem() == CopperMod.copperBoots)
-        {
-            return CopperMod.MODID + ":models/armor/copper_layer_1.png";
-        }
-        else
-        {
-            System.out.println("Invalid Item ItemLiveArmor");
-            return null;
-        }*/
     }   //end getArmorTexture
 
     //called on every armor tick
