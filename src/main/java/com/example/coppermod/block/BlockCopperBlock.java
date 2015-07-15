@@ -39,7 +39,7 @@ public class BlockCopperBlock extends Block
             this.setBlockTextureName("coppermod:copper_block");
         else
             this.setBlockTextureName("coppermod:copper_ore");
-        Minecraft.getMinecraft().renderGlobal.markBlockForRenderUpdate(x, y, z);
+        //Minecraft.getMinecraft().renderGlobal.markBlockForRenderUpdate(x, y, z);
     }
 
     public int tickRate(World world)

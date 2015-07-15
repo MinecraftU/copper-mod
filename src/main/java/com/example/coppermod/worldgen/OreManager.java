@@ -19,10 +19,13 @@ public class OreManager implements IWorldGenerator {
         switch(world.provider.dimensionId)
         {
             case -1: generateNether(world, random, chunkX*16, chunkZ*16);
+                break;
 
             case 0: generateSurface(world, random, chunkX*16, chunkZ*16);
+                break;
 
             case 1: generateEnd(world, random, chunkX*16, chunkZ*16);
+                break;
         }
     }
 

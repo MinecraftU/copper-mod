@@ -1,10 +1,13 @@
 package com.example.coppermod.block;
 
 import com.example.coppermod.CopperMod;
+import com.example.coppermod.item.ItemCopperPickaxe;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.world.World;
+import net.minecraftforge.event.world.BlockEvent;
 
 import java.util.Random;
 
@@ -39,5 +42,14 @@ public class BlockCopperOre extends Block
     {
         return 40;
     }
+
+    @SubscribeEvent
+    public void onBlockBroken(BlockEvent.BreakEvent event)
+    {
+        if(event.block instanceof BlockCopperOre && !(event.getPlayer().inventory.getCurrentItem().getItem() instanceof ItemCopperPickaxe))
+        {
+            event.setCanceled(true);
+        }
+    }   //end onBlockBroken
 
 }

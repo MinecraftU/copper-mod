@@ -33,7 +33,7 @@ public class BlockBlueberry extends BlockCrops
     {
         // DEBUG
         System.out.println("BlockBlueberry getItemDropped()");
-        return (CopperMod.greenApple);
+        return (CopperMod.blueberry);
     }
 
     @Override
@@ -43,13 +43,13 @@ public class BlockBlueberry extends BlockCrops
         iIcon = new IIcon[maxGrowthStage+1];
         // seems that crops like to have 8 growth icons, but okay to repeat actual texture if you want
         // to make generic should loop to maxGrowthStage
-        iIcon[0] = parIIconRegister.registerIcon("coppermod:blueberries_stage_0");
-        iIcon[1] = parIIconRegister.registerIcon("coppermod:blueberries_stage_0");
-        iIcon[2] = parIIconRegister.registerIcon("coppermod:blueberries_stage_1");
-        iIcon[3] = parIIconRegister.registerIcon("coppermod:blueberries_stage_1");
-        iIcon[4] = parIIconRegister.registerIcon("coppermod:blueberries_stage_2");
-        iIcon[5] = parIIconRegister.registerIcon("coppermod:blueberries_stage_2");
-        iIcon[6] = parIIconRegister.registerIcon("coppermod:blueberries_stage_3");
-        iIcon[7] = parIIconRegister.registerIcon("coppermod:blueberries_stage_3");
+        iIcon[0] = parIIconRegister.registerIcon("coppermod:blueberry_stage_0");
+        iIcon[1] = parIIconRegister.registerIcon("coppermod:blueberry_stage_0");
+        iIcon[2] = parIIconRegister.registerIcon("coppermod:blueberry_stage_1");
+        iIcon[3] = parIIconRegister.registerIcon("coppermod:blueberry_stage_1");
+        iIcon[4] = parIIconRegister.registerIcon("coppermod:blueberry_stage_2");
+        iIcon[5] = parIIconRegister.registerIcon("coppermod:blueberry_stage_2");
+        iIcon[6] = parIIconRegister.registerIcon("coppermod:blueberry_stage_3");
+        iIcon[7] = parIIconRegister.registerIcon("coppermod:blueberry_stage_3");
     }
 }
