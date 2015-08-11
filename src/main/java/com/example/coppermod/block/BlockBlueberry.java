@@ -9,7 +9,7 @@ import net.minecraft.util.IIcon;
 
 import java.util.Random;
 
-public class BlockBlueberry extends BlockCrops
+public class BlockBlueberry extends BlockMasterCrops
 {
 
     public BlockBlueberry()
@@ -32,7 +32,6 @@ public class BlockBlueberry extends BlockCrops
     public Item getItemDropped(int parMetadata, Random parRand, int parFortune)
     {
         // DEBUG
-        System.out.println("BlockBlueberry getItemDropped()");
         return (CopperMod.blueberry);
     }
 

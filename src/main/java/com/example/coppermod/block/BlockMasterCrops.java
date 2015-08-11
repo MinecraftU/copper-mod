@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockCrops extends BlockBush implements IGrowable
+public class BlockMasterCrops extends BlockBush implements IGrowable
 {
     protected int maxGrowthStage = 7;
 
@@ -22,7 +22,7 @@ public class BlockCrops extends BlockBush implements IGrowable
     @SideOnly(Side.CLIENT)
     protected IIcon[] iIcon;
 
-    public BlockCrops()
+    public BlockMasterCrops()
     {
         // Basic block setup
         setTickRandomly(true);

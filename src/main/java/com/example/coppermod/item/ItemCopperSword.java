@@ -1,5 +1,6 @@
 package com.example.coppermod.item;
 
+import com.example.coppermod.CopperMod;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
@@ -9,10 +10,13 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 /**
  * Created by atvaccaro on 8/8/14.
@@ -21,6 +25,7 @@ public class ItemCopperSword extends ItemSword
 {
     private final ToolMaterial material;
     private int weaponDamage;
+    public static int timeSinceLastParticleSpawn = 0;
 
     public ItemCopperSword(ToolMaterial tm) {
         super(tm);
@@ -50,32 +55,91 @@ public class ItemCopperSword extends ItemSword
 
     /**
      * Called when the item is used to hit an entity
-     * @param itemHitting
-     * @param entityBeingHit
-     * @param entityHitting
+     * @param item
+     * @param target
+     * @param player
      * @return
      */
-    public boolean hitEntity(ItemStack itemHitting, EntityLivingBase entityBeingHit, EntityLivingBase entityHitting)
+    public boolean hitEntity(ItemStack item, EntityLivingBase target, EntityLivingBase player)
     {
         //Create explosion on hit
         //4.0f is standard TNT strength
-        //entityBeingHit.worldObj.createExplosion(null, entityBeingHit.posX, entityBeingHit.posY, entityBeingHit.posZ, 4.0f, true);
+        //target.worldObj.createExplosion(null, target.posX, target.posY, target.posZ, 4.0f, true);
 
         //Set hit entity on fire
-        //entityBeingHit.setFire(4);
+        //target.setFire(4);
 
-        entityBeingHit.addVelocity(0, 1, 0);
+        //Make target fly up
+        target.addVelocity(0, 1, 0);
 
         //Attempt at creating lightning strike on hit
-        //EntityLightningBolt lightning = new EntityLightningBolt(entityBeingHit.worldObj, entityBeingHit.posX, entityBeingHit.posY, entityBeingHit.posZ);
+        //EntityLightningBolt lightning = new EntityLightningBolt(target.worldObj, target.posX, target.posY, target.posZ);
         //entityHitting.worldObj.addWeatherEffect(lightning);
 
         //Give potion effect to hit entity
-        entityBeingHit.addPotionEffect(new PotionEffect(1, 1, 0));
+        //target.addPotionEffect(new PotionEffect(1, 1, 0));
 
-        //itemHitting.damageItem(1, entityHitting);
+        //item.damageItem(1, player);
 
 
+        if (true) //!world.isRemote && timeSinceLastParticleSpawn % 40 == 0)
+        {
+            timeSinceLastParticleSpawn++;
+            System.out.println("spawn particles? " + target.worldObj.isRemote); //debug print
+            Random rand = new Random();
+            int width = 1;
+            int height = 1;
+            for (int particles = 0; particles < 10; particles++) {
+                double motionX = rand.nextGaussian() * 0.02D;
+                double motionY = rand.nextGaussian() * 0.02D;
+                double motionZ = rand.nextGaussian() * 0.02D;
+                target.worldObj.spawnParticle(
+                        "explode",
+                        player.posX, //+ rand.nextFloat() * width * 2.0F - width,
+                        player.posY + 3, //+ 0.5D + rand.nextFloat() * height,
+                        player.posZ, //+ rand.nextFloat() * width * 2.0F - width,
+                        motionX,
+                        motionY,
+                        motionZ);
+            }
+        }
         return true;
     }   //end hitEntity
+
+    @Override
+    public void onUpdate(ItemStack itemstack, World world, Entity player, int i, boolean flag) {
+        EntityPlayer p = (EntityPlayer)player;
+
+        if(p.getCurrentEquippedItem() !=null && p.getCurrentEquippedItem().getItem() == CopperMod.copperSword)
+        {
+            p.addPotionEffect(new PotionEffect(Potion.moveSpeed.getId(), 1, 0));
+        }
+        else
+        {
+
+        }
+
+        timeSinceLastParticleSpawn++;
+        if (timeSinceLastParticleSpawn == 0) //!world.isRemote && timeSinceLastParticleSpawn % 40 == 0)
+        {
+            timeSinceLastParticleSpawn = 0;
+            System.out.println("spawn particles?"); //debug print
+            Random rand = new Random();
+            int width = 1;
+            int height = 1;
+            for (int particles = 0; particles < 10; particles++) {
+            double motionX = rand.nextGaussian() * 0.02D;
+            double motionY = rand.nextGaussian() * 0.02D;
+            double motionZ = rand.nextGaussian() * 0.02D;
+            world.spawnParticle(
+                    "explode",
+                    player.posX, //+ rand.nextFloat() * width * 2.0F - width,
+                    player.posY + 1, //+ 0.5D + rand.nextFloat() * height,
+                    player.posZ, //+ rand.nextFloat() * width * 2.0F - width,
+                    motionX,
+                    motionY,
+                    motionZ);
+            }
+        }
+    }
 }

@@ -107,6 +107,7 @@ public class CopperMod
     public static ItemTortilla itemTortilla;
     public static ItemShreddedSteak itemShreddedSteak;
     public static ItemSteakTaco itemSteakTaco;
+    public static Item chocolateCoveredBlueberry;
 
     //Misc variables
     private static OreManager oreManager;
@@ -219,6 +220,9 @@ public class CopperMod
         itemTortilla = new ItemTortilla(1, 0.1F, false);
         GameRegistry.registerItem(itemTortilla, MODID + "_" + itemTortilla.getUnlocalizedName());
 
+        chocolateCoveredBlueberry = new ItemChocolateCoveredBlueberry();
+        GameRegistry.registerItem(chocolateCoveredBlueberry, chocolateCoveredBlueberry.getUnlocalizedName());
+
 
         //HANDLERS
         GameRegistry.registerFuelHandler(new FuelHandler());
@@ -232,6 +236,13 @@ public class CopperMod
         GameRegistry.addShapedRecipe(new ItemStack(copperBlock), "xxx", "xxx", "xxx", 'x', copperIngot);
         GameRegistry.addShapelessRecipe(new ItemStack(itemSteakTaco), itemTortilla, Items.cooked_beef);
         GameRegistry.addShapedRecipe(new ItemStack(itemTortilla), "xx ", "xx ", "   ", 'x', Items.wheat);
+        GameRegistry.addShapedRecipe(new ItemStack(chocolateCoveredBlueberry),
+                "ccc",
+                "cbc",
+                "ccc",
+                'b', new ItemStack(blueberry),
+                'c', new ItemStack(Items.dye, 1, 3)
+        );
 
 
         //SMELTING

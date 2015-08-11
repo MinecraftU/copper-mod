@@ -23,8 +23,9 @@ public class ItemCopperArmor extends ItemArmor
     public ItemCopperArmor(ArmorMaterial material, int armorType, String name)
     {
         super(material, 0, armorType);
-        setUnlocalizedName(name);
-        setTextureName(CopperMod.MODID + ":" + getUnlocalizedName().substring(5));
+        this.setUnlocalizedName(name);
+        this.setTextureName(CopperMod.MODID + ":" + getUnlocalizedName().substring(5));
+        this.setCreativeTab(CreativeTabs.tabCombat);
     }
 
     @Override
