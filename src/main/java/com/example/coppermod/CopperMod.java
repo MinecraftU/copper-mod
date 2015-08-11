@@ -33,6 +33,7 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.common.DungeonHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 
@@ -250,6 +251,9 @@ public class CopperMod
 
         //GRASS SEEDS
         MinecraftForge.addGrassSeed(new ItemStack(copperIngot), 100);   //10 weight is standard for wheat seeds
+
+        //DUNGEONS
+        DungeonHooks.addDungeonMob("Ghast", 100);
 
         //WORLDGEN
         oreManager = new OreManager();
