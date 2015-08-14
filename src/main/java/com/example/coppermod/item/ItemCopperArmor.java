@@ -14,6 +14,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
+import net.minecraftforge.common.ISpecialArmor;
+import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 
 /**
  * Created by atvaccaro on 8/20/14.
@@ -38,10 +40,16 @@ public class ItemCopperArmor extends ItemArmor
             return CopperMod.MODID + ":models/armor/copper_layer_1.png";
     }   //end getArmorTexture
 
+
     //called on every armor tick
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack armor) {
-        player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 500, 4));   //will refresh duration, not stack multiple
+        //player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 500, 4));   //will refresh duration, not stack multiple
+
+        //note that indices for getCurrentArmor are BACKWARDS (eg. 0 = boots, 3 = helm)
+        if (player.getCurrentArmor(0) != null && player.getCurrentArmor(0).getItem() == CopperMod.copperBoots) {
+            player.addPotionEffect(new PotionEffect(Potion.jump.getId(), 2, 10));
+        }
     }
 
     //can put in multiple creative tabs

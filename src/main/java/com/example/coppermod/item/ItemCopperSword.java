@@ -21,8 +21,7 @@ import java.util.Random;
 /**
  * Created by atvaccaro on 8/8/14.
  */
-public class ItemCopperSword extends ItemSword
-{
+public class ItemCopperSword extends ItemSword {
     private final ToolMaterial material;
     private int weaponDamage;
     public static int timeSinceLastParticleSpawn = 0;
@@ -45,23 +44,24 @@ public class ItemCopperSword extends ItemSword
 
     /**
      * Returns the damage vs entities (sorta)
+     *
      * @param par1Entity
      * @return
      */
-    public int getDamageVsEntity(Entity par1Entity)
-    {
+    public int getDamageVsEntity(Entity par1Entity) {
         return 3;//(int)this.material.getDamageVsEntity();
     }
 
     /**
      * Called when the item is used to hit an entity
+     *
      * @param item
      * @param target
      * @param player
      * @return
      */
-    public boolean hitEntity(ItemStack item, EntityLivingBase target, EntityLivingBase player)
-    {
+    public boolean hitEntity(ItemStack item, EntityLivingBase target, EntityLivingBase player) {
+        item.damageItem(1, player);    //damage item
         //Create explosion on hit
         //4.0f is standard TNT strength
         //target.worldObj.createExplosion(null, target.posX, target.posY, target.posZ, 4.0f, true);
@@ -85,7 +85,7 @@ public class ItemCopperSword extends ItemSword
         if (true) //!world.isRemote && timeSinceLastParticleSpawn % 40 == 0)
         {
             timeSinceLastParticleSpawn++;
-            System.out.println("spawn particles? " + target.worldObj.isRemote); //debug print
+            //System.out.println("spawn particles? " + target.worldObj.isRemote); //debug print
             Random rand = new Random();
             int width = 1;
             int height = 1;
@@ -108,37 +108,36 @@ public class ItemCopperSword extends ItemSword
 
     @Override
     public void onUpdate(ItemStack itemstack, World world, Entity player, int i, boolean flag) {
-        EntityPlayer p = (EntityPlayer)player;
+        EntityPlayer p = (EntityPlayer) player;
 
-        if(p.getCurrentEquippedItem() !=null && p.getCurrentEquippedItem().getItem() == CopperMod.copperSword)
-        {
+        //itemstack.addEnchantment();
+
+        if (p.getCurrentEquippedItem() != null && p.getCurrentEquippedItem().getItem() == CopperMod.copperSword) {
             p.addPotionEffect(new PotionEffect(Potion.moveSpeed.getId(), 1, 0));
-        }
-        else
-        {
+        } else {
 
         }
 
         timeSinceLastParticleSpawn++;
-        if (timeSinceLastParticleSpawn == 0) //!world.isRemote && timeSinceLastParticleSpawn % 40 == 0)
+        if (timeSinceLastParticleSpawn == 20) //!world.isRemote && timeSinceLastParticleSpawn % 40 == 0)
         {
             timeSinceLastParticleSpawn = 0;
-            System.out.println("spawn particles?"); //debug print
+            //System.out.println("spawn particles?"); //debug print
             Random rand = new Random();
             int width = 1;
             int height = 1;
             for (int particles = 0; particles < 10; particles++) {
-            double motionX = rand.nextGaussian() * 0.02D;
-            double motionY = rand.nextGaussian() * 0.02D;
-            double motionZ = rand.nextGaussian() * 0.02D;
-            world.spawnParticle(
-                    "explode",
-                    player.posX, //+ rand.nextFloat() * width * 2.0F - width,
-                    player.posY + 1, //+ 0.5D + rand.nextFloat() * height,
-                    player.posZ, //+ rand.nextFloat() * width * 2.0F - width,
-                    motionX,
-                    motionY,
-                    motionZ);
+                double motionX = rand.nextGaussian() * 0.02D;
+                double motionY = rand.nextGaussian() * 0.02D;
+                double motionZ = rand.nextGaussian() * 0.02D;
+                world.spawnParticle(
+                        "explode",
+                        player.posX, //+ rand.nextFloat() * width * 2.0F - width,
+                        player.posY + 1, //+ 0.5D + rand.nextFloat() * height,
+                        player.posZ, //+ rand.nextFloat() * width * 2.0F - width,
+                        motionX,
+                        motionY,
+                        motionZ);
             }
         }
     }

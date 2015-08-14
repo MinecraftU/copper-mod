@@ -1,5 +1,6 @@
 package com.example.coppermod.entity;
 
+import com.example.coppermod.CopperMod;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
@@ -521,7 +522,7 @@ public class EntityExplodingArrow extends EntityArrow implements IProjectile
         {
             boolean flag = this.canBePickedUp == 1 || this.canBePickedUp == 2 && p_70100_1_.capabilities.isCreativeMode;
 
-            if (this.canBePickedUp == 1 && !p_70100_1_.inventory.addItemStackToInventory(new ItemStack(Items.arrow, 1)))
+            if (this.canBePickedUp == 1 && !p_70100_1_.inventory.addItemStackToInventory(new ItemStack(CopperMod.explodingArrow, 1)))
             {
                 flag = false;
             }

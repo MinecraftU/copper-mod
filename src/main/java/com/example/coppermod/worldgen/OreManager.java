@@ -3,6 +3,7 @@ package com.example.coppermod.worldgen;
 import com.example.coppermod.CopperMod;
 import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
@@ -74,7 +75,8 @@ public class OreManager implements IWorldGenerator {
             int posX = blockXPos + random.nextInt(maxX);
             int posY = minY + random.nextInt(diffBtwnMinMaxY);
             int posZ = blockZPos + random.nextInt(maxZ);
-            (new WorldGenMinable(block, maxVeinSize)).generate(world, random, posX, posY, posZ);
+            (new WorldGenMinable(block, maxVeinSize, Blocks.dirt)).generate(world, random, posX, posY, posZ);
+            //third argument in WorldGenMinable determines replaced block; leave out to use Blocks.stone by default
         }
     }
 }

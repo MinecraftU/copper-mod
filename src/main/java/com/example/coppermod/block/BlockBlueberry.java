@@ -58,14 +58,14 @@ public class BlockBlueberry extends BlockCrops
         iIcon[3] = parIIconRegister.registerIcon("coppermod:blueberry_stage_1");
         iIcon[4] = parIIconRegister.registerIcon("coppermod:blueberry_stage_2");
         iIcon[5] = parIIconRegister.registerIcon("coppermod:blueberry_stage_2");
-        iIcon[6] = parIIconRegister.registerIcon("coppermod:blueberry_stage_3");
+        iIcon[6] = parIIconRegister.registerIcon("coppermod:blueberry_stage_2");
         iIcon[7] = parIIconRegister.registerIcon("coppermod:blueberry_stage_3");
     }
 
     @Override
     public ArrayList<ItemStack> getDrops(World w, int x, int y, int z, int meta, int fortune) {
-        ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
-        ret.add(new ItemStack(CopperMod.blueberry));
+        ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
+        drops.add(new ItemStack(CopperMod.blueberry));
 
         if (meta >= 7)
         {
@@ -73,10 +73,10 @@ public class BlockBlueberry extends BlockCrops
             {
                 if(w.rand.nextInt(10) <= meta)
                 {
-                    ret.add(new ItemStack(CopperMod.blueberry));
+                    drops.add(new ItemStack(CopperMod.blueberry));
                 }
             }
         }
-        return ret;
+        return drops;
     }   //end getDrops
 }

@@ -9,6 +9,7 @@ import com.example.coppermod.handler.GuiHandler;
 import com.example.coppermod.proxy.ClientProxy;
 import com.example.coppermod.proxy.CommonProxy;
 import com.example.coppermod.renderer.RenderExplodingArrow;
+import com.example.coppermod.renderer.RenderExplodingBow;
 import com.example.coppermod.tileentity.TileEntityAlabasterOven;
 import com.example.coppermod.worldgen.OreManager;
 import com.example.coppermod.item.*;
@@ -26,6 +27,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
@@ -33,6 +35,7 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.DungeonHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
@@ -103,12 +106,13 @@ public class CopperMod
 
     //Food variables
     public static Item greenApple;
-    public static ItemFlour itemFlour;
+    public static ItemBucketOfFlour itemFlour;
     public static ItemTortillaDough itemTortillaDough;
     public static ItemTortilla itemTortilla;
     public static ItemShreddedSteak itemShreddedSteak;
     public static ItemSteakTaco itemSteakTaco;
     public static Item chocolateCoveredBlueberry;
+    public static ItemSteakSandwich steakSandwich;
 
     //Misc variables
     private static OreManager oreManager;
@@ -153,7 +157,7 @@ public class CopperMod
         GameRegistry.registerItem(explodingBow, MODID + "_" + explodingBow.getUnlocalizedName());
         explodingArrow = new ItemExplodingArrow();
         GameRegistry.registerItem(explodingArrow, MODID + "_" + explodingArrow.getUnlocalizedName());
-        clientProxy.registerRenderThing(); //here b/c of arrow
+        clientProxy.registerRenderThing(); //could put arrow render registrations in client proxy
 
         //bow rendering
         RenderingRegistry.registerEntityRenderingHandler(EntityExplodingArrow.class, new RenderExplodingArrow());
@@ -163,10 +167,12 @@ public class CopperMod
 
         EntityRegistry.registerModEntity(EntityExplodingArrow.class, "exploding_arrow", 1, CopperMod.MODID,
                 128, 1, true);
+        //MinecraftForgeClient.registerItemRenderer(CopperMod.explodingBow, new RenderExplodingBow());
+
 
         //the order matters apparently?
-        RenderingRegistry.registerEntityRenderingHandler(EntityExplodingArrow.class, new RenderExplodingArrow());
-        EntityRegistry.registerModEntity(EntityExplodingArrow.class, "mystery_arrow", 1, this, 128, 1, true);
+        //RenderingRegistry.registerEntityRenderingHandler(EntityExplodingArrow.class, new RenderExplodingArrow());
+        //EntityRegistry.registerModEntity(EntityExplodingArrow.class, "mystery_arrow", 1, this, 128, 1, true);
 
         //CROPS
         blueberryBlock = new BlockBlueberry();
@@ -224,6 +230,9 @@ public class CopperMod
         chocolateCoveredBlueberry = new ItemChocolateCoveredBlueberry();
         GameRegistry.registerItem(chocolateCoveredBlueberry, chocolateCoveredBlueberry.getUnlocalizedName());
 
+        steakSandwich = new ItemSteakSandwich(8, 0.5f, false);
+        GameRegistry.registerItem(steakSandwich, steakSandwich.getUnlocalizedName());
+
 
         //HANDLERS
         GameRegistry.registerFuelHandler(new FuelHandler());
@@ -244,6 +253,11 @@ public class CopperMod
                 'b', new ItemStack(blueberry),
                 'c', new ItemStack(Items.dye, 1, 3)
         );
+        ItemStack aaSword = new ItemStack(copperSword);
+        aaSword.addEnchantment(Enchantment.aquaAffinity, 1);
+        GameRegistry.addShapelessRecipe(aaSword, new ItemStack(Items.stick));
+        GameRegistry.addShapelessRecipe(new ItemStack(itemFlour), new ItemStack(Items.wheat),
+                new ItemStack(Items.bucket));
 
 
         //SMELTING

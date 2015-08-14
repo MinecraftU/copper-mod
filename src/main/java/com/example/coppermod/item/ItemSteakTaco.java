@@ -2,6 +2,7 @@ package com.example.coppermod.item;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
@@ -36,5 +37,6 @@ public class ItemSteakTaco extends ItemFood {
     {
         if (!world.isRemote)
             player.addPotionEffect(new PotionEffect(1, 15 * 20, 0));  //potion id, duration (in ticks so x20), amplifier (0 is base)
+        player.inventory.addItemStackToInventory(new ItemStack(Blocks.obsidian));
     }
 }

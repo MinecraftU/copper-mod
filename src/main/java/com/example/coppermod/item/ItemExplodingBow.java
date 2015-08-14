@@ -31,6 +31,7 @@ public class ItemExplodingBow extends Item
         this.maxStackSize = 1;
         this.setMaxDamage(384);
         this.setCreativeTab(CreativeTabs.tabCombat);
+        this.bFull3D = true;
     }
 
     /**

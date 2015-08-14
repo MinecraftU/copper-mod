@@ -1,4 +1,4 @@
-package com.example.examplemod;
+package com.example.coppermod.item;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,9 +11,9 @@ import net.minecraft.world.World;
 /**
  * Created by John on 7/15/2015.
  */
-public class SteakSandwich extends ItemFood {
-    public SteakSandwich(int heal, float saturation,
-                         boolean isWolfsFavorite) {
+public class ItemSteakSandwich extends ItemFood {
+    public ItemSteakSandwich(int heal, float saturation,
+                             boolean isWolfsFavorite) {
         super(heal, saturation, isWolfsFavorite);
 
         this.setUnlocalizedName("steak_sandwich");
