@@ -22,10 +22,21 @@ public class ItemCopperIngot extends Item
         this.setTextureName("coppermod:copper_ingot");
     }
 
-    /*@Override
-    public boolean onItemUse(ItemStack itemstack, EntityPlayer player, World world, int p_77648_4_, int p_77648_5_, int p_77648_6_, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_)
+    @Override
+    public boolean onItemUse(ItemStack itemstack, EntityPlayer player, World world,
+                             int i1, int i2, int i3, int i4,
+                             float f1, float f2, float f3)
     {
-        System.out.println("Attempting to make explosion");
+        System.out.println(itemstack.getDisplayName());
+        System.out.println(player.getDisplayName());
+        System.out.println(i1);
+        System.out.println(i2);
+        System.out.println(i3);
+        System.out.println(i4);
+        System.out.println(f1);
+        System.out.println(f2);
+        System.out.println(f3);
+        /*System.out.println("Attempting to make explosion");
         //MovingObjectPosition mop = Minecraft.getMinecraft().renderViewEntity.rayTrace(200, 1.0F);
         MovingObjectPosition mop = Minecraft.getMinecraft().objectMouseOver;
         if(mop != null)
@@ -33,9 +44,9 @@ public class ItemCopperIngot extends Item
             int blockHitSide = mop.sideHit;
             Block blockLookingAt = world.getBlock(mop.blockX, mop.blockY, mop.blockZ);
             world.createExplosion(null, mop.blockX, mop.blockY, mop.blockZ, 3.0f, true);
-        }
+        }*/
         return false;
-    }   //end onItemUse */
+    }   //end onItemUse
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player)

@@ -1,5 +1,7 @@
 package utd.atvaccaro.coppermod.block;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.util.IIcon;
 import utd.atvaccaro.coppermod.CopperMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -14,6 +16,11 @@ import java.util.Random;
  */
 public class BlockCopperBlock extends Block
 {
+
+    private IIcon topIcon;
+    private IIcon sideIcon;
+    private IIcon botIcon;
+
     public BlockCopperBlock(Material mat)
     {
         super(mat);
@@ -63,5 +70,30 @@ public class BlockCopperBlock extends Block
     public Item getItemDropped(int p_149650_1_, Random rand, int p_149650_3_)
     {
         return CopperMod.copperIngot;
+    }
+
+
+
+    //This function registers our textures to their specific icons
+    @Override
+    public void registerBlockIcons(IIconRegister ir)
+    {
+        this.topIcon = ir.registerIcon("coppermod:copper_block_top");
+        this.sideIcon = ir.registerIcon("coppermod:copper_block_side");
+        this.botIcon = ir.registerIcon("coppermod:copper_block_bottom");
+    }
+
+    //This function tells which icons to use for which sides of the block
+    @Override
+    public IIcon getIcon(int side, int meta) //side = the side of the block
+    {
+        if (side == 0) //Bottom
+            return botIcon;
+
+        else if (side == 1) //Top
+            return topIcon;
+
+        else //all other sides, numbers 2,3,4,5
+            return sideIcon;
     }
 }
