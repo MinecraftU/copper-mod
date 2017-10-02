@@ -5,3 +5,5 @@ out/production
 *.iws
 *.iml
 *gradle*
+.idea/
+run/
