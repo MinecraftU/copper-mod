@@ -12,9 +12,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-/**
- * Created by atvaccaro on 8/8/14.
- */
 public class ItemCopperIngot extends Item
 {
     public ItemCopperIngot()

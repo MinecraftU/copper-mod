@@ -1,23 +1,18 @@
 package com.andrewvaccaro.coppermod.item.weapons;
 
-import com.andrewvaccaro.coppermod.CopperMod;
 import com.andrewvaccaro.coppermod.init.CopperModItems;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-public class ItemCopperArmor extends ItemArmor
-{
-    public ItemCopperArmor(ArmorMaterial material, EntityEquipmentSlot armorType, String name)
-    {
-        super(material, 0, armorType);
+public class ItemCopperArmor extends ItemArmor {
+    public ItemCopperArmor(EntityEquipmentSlot armorType, String name) {
+        super(CopperModItems.COPPER_ARMOR, 0, armorType);
         this.setUnlocalizedName(name);
         this.setCreativeTab(CreativeTabs.COMBAT);
     }
@@ -34,7 +29,7 @@ public class ItemCopperArmor extends ItemArmor
 
     @Override
     public CreativeTabs[] getCreativeTabs() {
-        return new CreativeTabs[] {CreativeTabs.COMBAT, CreativeTabs.TOOLS};
+        return new CreativeTabs[]{CreativeTabs.COMBAT, CreativeTabs.TOOLS};
     }
 
     @Override

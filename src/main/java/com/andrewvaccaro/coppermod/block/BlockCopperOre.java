@@ -4,10 +4,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
-public class BlockCopperOre extends Block
-{
-    public BlockCopperOre(Material mat) {
-        super(mat);
+public class BlockCopperOre extends Block {
+    public BlockCopperOre() {
+        super(Material.ROCK);
 
         this.setUnlocalizedName("copper_ore");
         this.setHardness(10.0F);

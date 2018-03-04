@@ -7,10 +7,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
-import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
@@ -18,23 +16,14 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class ItemCopperSword extends ItemSword {
-    private final ToolMaterial material;
-    private int weaponDamage;
     public static int timeSinceLastParticleSpawn = 0;
 
-    public ItemCopperSword(ToolMaterial tm) {
-        super(tm);
-
-        material = tm;
-
+    public ItemCopperSword() {
+        super(CopperMod.COPPER);
         this.setUnlocalizedName("copper_sword");
-
         this.maxStackSize = 1;
         this.setCreativeTab(CreativeTabs.COMBAT);
-
-        this.setMaxDamage(751);
-        this.weaponDamage = 10;
-
+        this.setMaxDamage(751); // durability
     }
 
     /**

@@ -9,17 +9,15 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 public class ItemSteakSandwich extends ItemFood {
-    public ItemSteakSandwich(int heal, float saturation, boolean isWolfsFavorite) {
-        super(heal, saturation, isWolfsFavorite);
-
+    public ItemSteakSandwich() {
+        super(8, 0.5F, false);
         this.setUnlocalizedName("steak_sandwich");
         this.setCreativeTab(CreativeTabs.FOOD);
     }
 
     @Override
-    protected void onFoodEaten(ItemStack item, World world, EntityPlayer player)
-    {
-        if(!world.isRemote)
+    protected void onFoodEaten(ItemStack item, World world, EntityPlayer player) {
+        if (!world.isRemote)
             player.addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 5 * 20, 0)); // Potion ID, duration in ticks, amplifier
     }
 }

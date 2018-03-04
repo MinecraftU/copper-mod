@@ -6,12 +6,10 @@ import net.minecraft.item.ItemSpade;
 /**
  * Created by atvaccaro on 8/20/14.
  */
-public class ItemCopperShovel extends ItemSpade
-{
-    public ItemCopperShovel(ToolMaterial tm, String name)
-    {
-        super(tm);
-        setUnlocalizedName(name);
+public class ItemCopperShovel extends ItemSpade {
+    public ItemCopperShovel() {
+        super(CopperMod.COPPER);
+        setUnlocalizedName("copper_shovel");
     }
 
 }

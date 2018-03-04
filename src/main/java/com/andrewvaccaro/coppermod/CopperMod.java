@@ -24,9 +24,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 
 @Mod(modid = CopperMod.MOD_ID, version = CopperMod.VERSION)
-public class CopperMod
-{
-    //Mod info variables
+public class CopperMod {
     public static final String MOD_ID = "coppermod";
     public static final String MOD_NAME = "Copper Mod";
     public static final String VERSION = "1.0";
@@ -40,9 +38,6 @@ public class CopperMod
     public static CommonProxy proxy;
 
 
-    //Block variables
-
-
     public static CreativeTabs tabCopper = new CreativeTabs("CopperTab") {
         @Override
         @MethodsReturnNonnullByDefault
@@ -52,18 +47,14 @@ public class CopperMod
         }
     };
 
-    //Misc variables
     private static OreManager oreManager;
 
-
-    //Create tool and armor materials
     public static final Item.ToolMaterial COPPER = EnumHelper.addToolMaterial("copper_tool", 2,
             150, 5.0F, 2.0F, 21); //Harvest level, durability, block damage, entity damage, enchantability
 
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event)
-    {
+    public void preInit(FMLPreInitializationEvent event) {
         CopperModItems.init();
         CopperModItems.register();
         CopperModBlocks.init();
@@ -85,6 +76,7 @@ public class CopperMod
                 'b', new ItemStack(CopperModItems.blueberry),
                 'c', new ItemStack(Items.DYE, 1, 3)
         );
+
         ItemStack aaSword = new ItemStack(CopperModItems.copperSword);
         aaSword.addEnchantment(Enchantments.AQUA_AFFINITY, 1);
         GameRegistry.addShapelessRecipe(aaSword, new ItemStack(Items.STICK));

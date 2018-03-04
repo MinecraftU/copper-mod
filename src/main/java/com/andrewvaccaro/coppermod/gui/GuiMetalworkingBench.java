@@ -10,15 +10,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
-/**
- * Created by atvaccaro on 8/21/14.
- */
 public class GuiMetalworkingBench extends GuiContainer {
 
     private ResourceLocation texture = new ResourceLocation(CopperMod.MOD_ID + ":" + "textures/gui/metalworking_bench.png");
 
-    public GuiMetalworkingBench(InventoryPlayer invPlayer, World world, int x, int y, int z)
-    {
+    public GuiMetalworkingBench(InventoryPlayer invPlayer, World world, int x, int y, int z) {
         super(new ContainerMetalworkingBench(invPlayer, world, x, y, z));
 
         this.xSize = 176;
@@ -33,7 +29,7 @@ public class GuiMetalworkingBench extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int i, int j) {
 
         this.fontRendererObj.drawString(I18n.translateToLocal("Metalworking Bench"), 100, 5, 0xFFFFFF);
-                                                                                                //x, y, color
+        //x, y, color
 
     }
 

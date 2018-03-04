@@ -9,8 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class ContainerMetalworkingBench extends Container
-{
+public class ContainerMetalworkingBench extends Container {
 
     public InventoryCrafting craftMatrix;
     public IInventory craftResult;
@@ -32,14 +31,14 @@ public class ContainerMetalworkingBench extends Container
 
         //Add the crafting area slots
         for (int i = 0; i < 3; i++) {
-            for(int k = 0; k < 3; k++) {
+            for (int k = 0; k < 3; k++) {
                 this.addSlotToContainer(new Slot(craftMatrix, k + i * 3, 30 + k * 18, 17 + i * 18)); //number slot, x, y
             }
         }
 
         //Add the player main inventory slots
         for (int i = 0; i < 3; i++) {
-            for(int k = 0; k < 9; k++) {
+            for (int k = 0; k < 9; k++) {
                 this.addSlotToContainer(new Slot(invPlayer, k + i * 9 + 9, 8 + k * 18, 84 + i * 18)); //number slot, x, y
             }
         }
@@ -53,37 +52,28 @@ public class ContainerMetalworkingBench extends Container
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer player)
-    {
-        if(worldObj.getBlockState(new BlockPos(posX, posY, posZ)).getBlock() != CopperModBlocks.metalworkingBench){
+    public boolean canInteractWith(EntityPlayer player) {
+        if (worldObj.getBlockState(new BlockPos(posX, posY, posZ)).getBlock() != CopperModBlocks.metalworkingBench) {
             return false;
-        }
-
-        else
-        {
-            return player.getDistanceSq((double)posX + 0.5D, (double)posY + 0.5D, (double)posZ + 0.5D) <= 64.0D;
+        } else {
+            return player.getDistanceSq((double) posX + 0.5D, (double) posY + 0.5D, (double) posZ + 0.5D) <= 64.0D;
         }
 
     }
 
-    public void onCraftMatrixChanged(IInventory iiventory)
-    {
+    public void onCraftMatrixChanged(IInventory iiventory) {
         //Links the crafting manager to the container
         craftResult.setInventorySlotContents(0, MetalworkingBenchCraftingManager.getInstance().findMatchingRecipe(craftMatrix, worldObj));
     }
 
-    public void onContainerClosed(EntityPlayer par1EntityPlayer)
-    {
+    public void onContainerClosed(EntityPlayer par1EntityPlayer) {
         super.onContainerClosed(par1EntityPlayer);
 
-        if (!this.worldObj.isRemote)
-        {
-            for (int i = 0; i < 9; ++i)
-            {
+        if (!this.worldObj.isRemote) {
+            for (int i = 0; i < 9; ++i) {
                 ItemStack itemstack = this.craftMatrix.getStackInSlot(i);
 
-                if (itemstack != null)
-                {
+                if (itemstack != null) {
                     par1EntityPlayer.dropItem(itemstack, false);
                 }
             }
@@ -93,52 +83,37 @@ public class ContainerMetalworkingBench extends Container
 
     public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2) {
         ItemStack itemstack = null;
-        Slot slot = (Slot)this.inventorySlots.get(par2);
+        Slot slot = (Slot) this.inventorySlots.get(par2);
 
-        if (slot != null && slot.getHasStack())
-        {
+        if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
-            if (par2 == 0)
-            {
-                if (!this.mergeItemStack(itemstack1, 10, 46, true))
-                {
+            if (par2 == 0) {
+                if (!this.mergeItemStack(itemstack1, 10, 46, true)) {
                     return null;
                 }
 
                 slot.onSlotChange(itemstack1, itemstack);
-            }
-            else if (par2 >= 10 && par2 < 37)
-            {
-                if (!this.mergeItemStack(itemstack1, 37, 46, false))
-                {
+            } else if (par2 >= 10 && par2 < 37) {
+                if (!this.mergeItemStack(itemstack1, 37, 46, false)) {
                     return null;
                 }
-            }
-            else if (par2 >= 37 && par2 < 46)
-            {
-                if (!this.mergeItemStack(itemstack1, 10, 37, false))
-                {
+            } else if (par2 >= 37 && par2 < 46) {
+                if (!this.mergeItemStack(itemstack1, 10, 37, false)) {
                     return null;
                 }
-            }
-            else if (!this.mergeItemStack(itemstack1, 10, 46, false))
-            {
+            } else if (!this.mergeItemStack(itemstack1, 10, 46, false)) {
                 return null;
             }
 
-            if (itemstack1.stackSize == 0)
-            {
-                slot.putStack((ItemStack)null);
-            }
-            else
-            {
+            if (itemstack1.stackSize == 0) {
+                slot.putStack((ItemStack) null);
+            } else {
                 slot.onSlotChanged();
             }
 
-            if (itemstack1.stackSize == itemstack.stackSize)
-            {
+            if (itemstack1.stackSize == itemstack.stackSize) {
                 return null;
             }
 

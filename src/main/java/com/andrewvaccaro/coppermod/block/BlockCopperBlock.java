@@ -4,12 +4,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
-public class BlockCopperBlock extends Block
-{
-
-    public BlockCopperBlock(Material mat)
-    {
-        super(mat);
+public class BlockCopperBlock extends Block {
+    public BlockCopperBlock() {
+        super(Material.IRON);
 
         this.setHardness(5.0F);
         this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);

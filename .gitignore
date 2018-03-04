@@ -1,4 +1,5 @@
 eclipse/*
+build/
 out/production
 *changelog.txt
 *.ipr
