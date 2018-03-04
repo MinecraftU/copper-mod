@@ -12,7 +12,7 @@ public class ItemCopperAxe extends ItemAxe {
             Blocks.CHEST, Blocks.PUMPKIN, Blocks.LIT_PUMPKIN);
 
     public ItemCopperAxe(ToolMaterial tm, String name) {
-        super(tm);
+        super(tm, 2.0F, 5.0F); // damage and speed
 
         setUnlocalizedName(name);
     }

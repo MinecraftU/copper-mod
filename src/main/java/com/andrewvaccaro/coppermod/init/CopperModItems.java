@@ -2,11 +2,13 @@ package com.andrewvaccaro.coppermod.init;
 
 import com.andrewvaccaro.coppermod.CopperMod;
 import com.andrewvaccaro.coppermod.item.food.*;
+import com.andrewvaccaro.coppermod.item.material.ItemCopperIngot;
 import com.andrewvaccaro.coppermod.item.tools.*;
 import com.andrewvaccaro.coppermod.item.weapons.ItemCopperArmor;
 import com.andrewvaccaro.coppermod.item.weapons.ItemCopperSword;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemFood;
@@ -47,6 +49,7 @@ public class CopperModItems {
     public static Item steakSandwich;;
 
     public static void init() {
+        copperIngot = new ItemCopperIngot();
         itemTortillaDough = new ItemTortillaDough();
         blueberry = new ItemBlueberry();
         copperSword = new ItemCopperSword(CopperMod.COPPER);
@@ -55,10 +58,10 @@ public class CopperModItems {
         copperShovel = new ItemCopperShovel(CopperMod.COPPER, "copper_shovel");
         copperHoe = new ItemCopperHoe(CopperMod.COPPER, "copper_hoe");
         mysteryToolSeed = new ItemMysteryToolSeed();
-        copperHelmet = new ItemCopperArmor(COPPER_ARMOR, 0, "copper_helmet");
-        copperChestplate = new ItemCopperArmor(COPPER_ARMOR, 1, "copper_chestplate");
-        copperLegs = new ItemCopperArmor(COPPER_ARMOR, 2, "copper_legs");
-        copperBoots = new ItemCopperArmor(COPPER_ARMOR, 3, "copper_boots");
+        copperHelmet = new ItemCopperArmor(COPPER_ARMOR, EntityEquipmentSlot.HEAD, "copper_helmet");
+        copperChestplate = new ItemCopperArmor(COPPER_ARMOR, EntityEquipmentSlot.CHEST, "copper_chestplate");
+        copperLegs = new ItemCopperArmor(COPPER_ARMOR, EntityEquipmentSlot.LEGS, "copper_legs");
+        copperBoots = new ItemCopperArmor(COPPER_ARMOR, EntityEquipmentSlot.FEET, "copper_boots");
         greenApple = new ItemFood(6, 0.2F, false).setUnlocalizedName("green_apple");
         itemSteakTaco = new ItemSteakTaco(12, 0.8F, false); //with entirely new class
         itemTortilla = new ItemTortilla(1, 0.1F, false);

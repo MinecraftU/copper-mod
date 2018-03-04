@@ -2,31 +2,24 @@ package com.andrewvaccaro.coppermod.item.food;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-/**
- * Created by John on 7/15/2015.
- */
 public class ItemSteakSandwich extends ItemFood {
-    public ItemSteakSandwich(int heal, float saturation,
-                             boolean isWolfsFavorite) {
+    public ItemSteakSandwich(int heal, float saturation, boolean isWolfsFavorite) {
         super(heal, saturation, isWolfsFavorite);
 
         this.setUnlocalizedName("steak_sandwich");
-        this.setTextureName("examplemod:steak_sandwich");
-        this.setCreativeTab(CreativeTabs.tabFood);
+        this.setCreativeTab(CreativeTabs.FOOD);
     }
 
-    protected void onFoodEaten(ItemStack item, World world,
-                               EntityPlayer player)
+    @Override
+    protected void onFoodEaten(ItemStack item, World world, EntityPlayer player)
     {
         if(!world.isRemote)
-            player.addPotionEffect(new PotionEffect(
-                    Potion.invisibility.getId(), 5 * 20, 0));
-                    // Potion ID, duration in ticks, amplifier
+            player.addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 5 * 20, 0)); // Potion ID, duration in ticks, amplifier
     }
 }

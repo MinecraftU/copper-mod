@@ -1,21 +1,22 @@
 package com.andrewvaccaro.coppermod.item.weapons;
 
 import com.andrewvaccaro.coppermod.CopperMod;
+import com.andrewvaccaro.coppermod.init.CopperModItems;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
-/**
- * Created by atvaccaro on 8/8/14.
- */
 public class ItemCopperSword extends ItemSword {
     private final ToolMaterial material;
     private int weaponDamage;
@@ -26,11 +27,10 @@ public class ItemCopperSword extends ItemSword {
 
         material = tm;
 
-        this.setTextureName("coppermod:copper_sword");
         this.setUnlocalizedName("copper_sword");
 
         this.maxStackSize = 1;
-        this.setCreativeTab(CreativeTabs.tabCombat);
+        this.setCreativeTab(CreativeTabs.COMBAT);
 
         this.setMaxDamage(751);
         this.weaponDamage = 10;
@@ -89,7 +89,7 @@ public class ItemCopperSword extends ItemSword {
                 double motionY = rand.nextGaussian() * 0.02D;
                 double motionZ = rand.nextGaussian() * 0.02D;
                 target.worldObj.spawnParticle(
-                        "explode",
+                        EnumParticleTypes.EXPLOSION_NORMAL,
                         player.posX, //+ rand.nextFloat() * width * 2.0F - width,
                         player.posY + 3, //+ 0.5D + rand.nextFloat() * height,
                         player.posZ, //+ rand.nextFloat() * width * 2.0F - width,
@@ -105,12 +105,9 @@ public class ItemCopperSword extends ItemSword {
     public void onUpdate(ItemStack itemstack, World world, Entity player, int i, boolean flag) {
         EntityPlayer p = (EntityPlayer) player;
 
-        //itemstack.addEnchantment();
 
-        if (p.getCurrentEquippedItem() != null && p.getCurrentEquippedItem().getItem() == CopperMod.copperSword) {
-            p.addPotionEffect(new PotionEffect(Potion.moveSpeed.getId(), 1, 0));
-        } else {
-
+        if (p.getHeldItemMainhand() != null && p.getHeldItemMainhand().getItem() == CopperModItems.copperSword) {
+            p.addPotionEffect(new PotionEffect(new PotionEffect(MobEffects.SPEED, 1, 0)));
         }
 
         timeSinceLastParticleSpawn++;
@@ -126,7 +123,7 @@ public class ItemCopperSword extends ItemSword {
                 double motionY = rand.nextGaussian() * 0.02D;
                 double motionZ = rand.nextGaussian() * 0.02D;
                 world.spawnParticle(
-                        "explode",
+                        EnumParticleTypes.EXPLOSION_NORMAL,
                         player.posX, //+ rand.nextFloat() * width * 2.0F - width,
                         player.posY + 1, //+ 0.5D + rand.nextFloat() * height,
                         player.posZ, //+ rand.nextFloat() * width * 2.0F - width,

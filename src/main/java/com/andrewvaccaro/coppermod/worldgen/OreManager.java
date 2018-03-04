@@ -1,6 +1,8 @@
 package com.andrewvaccaro.coppermod.worldgen;
 
 import com.andrewvaccaro.coppermod.init.CopperModBlocks;
+import net.minecraft.block.state.pattern.BlockMatcher;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import net.minecraft.block.Block;
@@ -9,6 +11,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 
+import javax.sql.rowset.Predicate;
 import java.util.Random;
 
 /**
@@ -16,7 +19,7 @@ import java.util.Random;
  */
 public class OreManager implements IWorldGenerator {
     @Override
-    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
+    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
     {
         switch(world.provider.getDimension())
         {
@@ -76,7 +79,7 @@ public class OreManager implements IWorldGenerator {
             int posX = blockXPos + random.nextInt(maxX);
             int posY = minY + random.nextInt(diffBtwnMinMaxY);
             int posZ = blockZPos + random.nextInt(maxZ);
-            (new WorldGenMinable(block, maxVeinSize, Blocks.DIRT)).generate(world, random, posX, posY, posZ);
+            new WorldGenMinable(block.getBlockState().getBaseState(), maxVeinSize, BlockMatcher.forBlock(Blocks.DIRT)).generate(world, random, new BlockPos(posX, posY, posZ));
             //third argument in WorldGenMinable determines replaced block; leave out to use Blocks.stone by default
         }
     }

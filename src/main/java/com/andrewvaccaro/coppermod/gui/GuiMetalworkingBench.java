@@ -4,9 +4,9 @@ import com.andrewvaccaro.coppermod.CopperMod;
 import com.andrewvaccaro.coppermod.container.ContainerMetalworkingBench;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
@@ -32,7 +32,7 @@ public class GuiMetalworkingBench extends GuiContainer {
 
     protected void drawGuiContainerForegroundLayer(int i, int j) {
 
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("Metalworking Bench"), 100, 5, 0xFFFFFF);
+        this.fontRendererObj.drawString(I18n.translateToLocal("Metalworking Bench"), 100, 5, 0xFFFFFF);
                                                                                                 //x, y, color
 
     }

@@ -12,6 +12,6 @@ public class ItemCopperShovel extends ItemSpade
     {
         super(tm);
         setUnlocalizedName(name);
-        setTextureName(CopperMod.MOD_ID + ":" + getUnlocalizedName().substring(5));
     }
+
 }
