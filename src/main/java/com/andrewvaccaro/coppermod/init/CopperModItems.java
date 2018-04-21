@@ -12,6 +12,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemFood;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -46,6 +47,7 @@ public class CopperModItems {
     public static Item steakSandwich;
 
     public static void init() {
+        itemTortilla = new ItemTortilla(1, 0.1F, false);
         copperIngot = new ItemCopperIngot();
         itemTortillaDough = new ItemTortillaDough();
         blueberry = new ItemBlueberry();
@@ -61,43 +63,40 @@ public class CopperModItems {
         copperBoots = new ItemCopperArmor(EntityEquipmentSlot.FEET, "copper_boots");
         greenApple = new ItemFood(6, 0.2F, false).setUnlocalizedName("green_apple");
         itemSteakTaco = new ItemSteakTaco();
-        itemTortilla = new ItemTortilla();
         chocolateCoveredBlueberry = new ItemChocolateCoveredBlueberry();
         steakSandwich = new ItemSteakSandwich();
     }
 
     public static void register() {
-        GameRegistry.registerItem(blueberry, blueberry.getUnlocalizedName());
-        GameRegistry.registerItem(itemTortillaDough, CopperMod.MOD_ID + ":" + itemTortillaDough.getUnlocalizedName().substring(5));
-        GameRegistry.registerItem(copperSword, copperSword.getUnlocalizedName());
-        GameRegistry.registerItem(copperPickaxe, copperPickaxe.getUnlocalizedName());
-        GameRegistry.registerItem(copperAxe, copperAxe.getUnlocalizedName());
-        GameRegistry.registerItem(copperShovel, copperShovel.getUnlocalizedName());
-        GameRegistry.registerItem(copperHoe, copperHoe.getUnlocalizedName());
-        GameRegistry.registerItem(mysteryToolSeed, mysteryToolSeed.getUnlocalizedName());
-        GameRegistry.registerItem(copperHelmet, copperHelmet.getUnlocalizedName());
-        GameRegistry.registerItem(copperChestplate, copperChestplate.getUnlocalizedName());
-        GameRegistry.registerItem(copperLegs, copperLegs.getUnlocalizedName());
-        GameRegistry.registerItem(copperBoots, CopperMod.MOD_ID + "_" + copperBoots.getUnlocalizedName());
-        GameRegistry.registerItem(greenApple, greenApple.getUnlocalizedName());
-        GameRegistry.registerItem(itemSteakTaco, itemSteakTaco.getUnlocalizedName());
-        GameRegistry.registerItem(itemTortilla, itemTortilla.getUnlocalizedName());
-        GameRegistry.registerItem(chocolateCoveredBlueberry, chocolateCoveredBlueberry.getUnlocalizedName());
-        GameRegistry.registerItem(steakSandwich, steakSandwich.getUnlocalizedName());
+        GameRegistry.register(itemTortilla);
+//        GameRegistry.registerItem(copperIngot, copperIngot.getUnlocalizedName());
+//        GameRegistry.registerItem(blueberry, blueberry.getUnlocalizedName());
+//        GameRegistry.registerItem(itemTortillaDough, itemTortillaDough.getUnlocalizedName());
+//        GameRegistry.registerItem(copperSword, copperSword.getUnlocalizedName());
+//        GameRegistry.registerItem(copperPickaxe, copperPickaxe.getUnlocalizedName());
+//        GameRegistry.registerItem(copperAxe, copperAxe.getUnlocalizedName());
+//        GameRegistry.registerItem(copperShovel, copperShovel.getUnlocalizedName());
+//        GameRegistry.registerItem(copperHoe, copperHoe.getUnlocalizedName());
+//        GameRegistry.registerItem(mysteryToolSeed, mysteryToolSeed.getUnlocalizedName());
+//        GameRegistry.registerItem(copperHelmet, copperHelmet.getUnlocalizedName());
+//        GameRegistry.registerItem(copperChestplate, copperChestplate.getUnlocalizedName());
+//        GameRegistry.registerItem(copperLegs, copperLegs.getUnlocalizedName());
+//        GameRegistry.registerItem(copperBoots, copperBoots.getUnlocalizedName());
+//        GameRegistry.registerItem(greenApple, greenApple.getUnlocalizedName());
+//        GameRegistry.registerItem(itemSteakTaco, itemSteakTaco.getUnlocalizedName());
+//        GameRegistry.registerItem(chocolateCoveredBlueberry, chocolateCoveredBlueberry.getUnlocalizedName());
+//        GameRegistry.registerItem(steakSandwich, steakSandwich.getUnlocalizedName());
     }
 
     public static void registerRenders() {
-        registerRender(itemTortillaDough);
+        registerRender(itemTortilla);
     }
 
     public static void registerRender(Item item) {
-        Minecraft.getMinecraft()
-                .getRenderItem()
-                .getItemModelMesher()
-                .register(item, 0, new ModelResourceLocation(
-                        CopperMod.MOD_ID + ":" + item.getUnlocalizedName().substring(5),
-                        "inventory"
-                ));
+        ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(
+                CopperMod.MOD_ID + ":" + item.getUnlocalizedName(),
+                "inventory"
+        ));
     }
 
 }

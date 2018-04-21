@@ -5,5 +5,6 @@ import net.minecraft.item.Item;
 public class ItemTortillaDough extends Item {
     public ItemTortillaDough() {
         super();
+        this.setUnlocalizedName("tortilla_dough");
     }
 }

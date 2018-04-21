@@ -24,10 +24,9 @@ public class CopperModBlocks {
     }
 
     public static void register() {
-        GameRegistry.registerBlock(copperOre, copperOre.getUnlocalizedName());
-        GameRegistry.registerBlock(copperBlock, copperBlock.getUnlocalizedName());
-        GameRegistry.registerBlock(blueberryBlock, blueberryBlock.getUnlocalizedName());
-        GameRegistry.registerBlock(metalworkingBench, metalworkingBench.getUnlocalizedName());
+//        GameRegistry.registerBlock(copperOre, copperOre.getUnlocalizedName());
+//        GameRegistry.registerBlock(copperBlock, copperBlock.getUnlocalizedName());
+//        GameRegistry.registerBlock(blueberryBlock, blueberryBlock.getUnlocalizedName());
     }
 
     public static void registerRenders() {

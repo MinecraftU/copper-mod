@@ -37,7 +37,6 @@ public class CopperMod {
     @SidedProxy(clientSide = CLIENT_PROXY_CLASS, serverSide = SERVER_PROXY_CLASS)
     public static CommonProxy proxy;
 
-
     public static CreativeTabs tabCopper = new CreativeTabs("CopperTab") {
         @Override
         @MethodsReturnNonnullByDefault
@@ -59,6 +58,7 @@ public class CopperMod {
         CopperModItems.register();
         CopperModBlocks.init();
         CopperModBlocks.register();
+        proxy.registerRenders();
 
         GameRegistry.registerFuelHandler(new FuelHandler());
 

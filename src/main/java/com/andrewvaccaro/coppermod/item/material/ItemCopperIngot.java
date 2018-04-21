@@ -1,5 +1,7 @@
 package com.andrewvaccaro.coppermod.item.material;
 
+import com.andrewvaccaro.coppermod.CopperMod;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +13,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 
 public class ItemCopperIngot extends Item
 {
@@ -18,6 +21,7 @@ public class ItemCopperIngot extends Item
     {
         this.setUnlocalizedName("copper_ingot");
         this.setCreativeTab(CreativeTabs.MATERIALS);
+        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(CopperMod.MOD_ID + ":" + this.getUnlocalizedName(), "inventory"));
     }
 
     @Override

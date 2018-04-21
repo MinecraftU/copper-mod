@@ -1,0 +1,7 @@
+{
+  "defaults": {
+    "textures": {
+      "all": "coppermod:blocks/copper_block"
+    }
+  }
+}
